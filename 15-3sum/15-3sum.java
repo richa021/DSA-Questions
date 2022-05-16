@@ -1,7 +1,6 @@
 class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
         List<List<Integer>> l = new ArrayList<>();
-        Set<List<Integer>> set = new LinkedHashSet<>();
         if(nums.length<3){
             return l;
         }
@@ -10,12 +9,13 @@ class Solution {
         for(int i=0;i<=nums.length-3;i++){
             int k=i+1;
             int j=nums.length-1;
-            System.out.println("1");
+            int a=-nums[i];
             while(k<j){
-                if((nums[k]+nums[j])>(-1*nums[i])){
+                int sum = nums[k]+nums[j];
+                if(sum>a){
                     j--;
                 }
-                else if((nums[k]+nums[j])<(-1*nums[i])){
+                else if(sum<a){
                     k++;
                 }
                 else{
@@ -23,17 +23,16 @@ class Solution {
                     list.add(nums[i]);
                     list.add(nums[k]);
                     list.add(nums[j]);
-                    //System.out.println(list);
-                    set.add(new ArrayList<>(list));
-                    //System.out.println(set);
-                    list.clear();
+                    l.add(list);
+                    while(k<j && nums[k]==nums[k+1])k++;
+                    while(k<j && nums[j]==nums[j-1])j--;
                     k++;j--;
                     
                 }
+                while(i<nums.length - 3 && nums[i]==nums[i+1])i++;
             }
             
         }
-        l.addAll(set);
         return l;
         
     }
